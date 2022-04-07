@@ -159,7 +159,7 @@ public void fillPanelItem() {
     
     gbc.gridx = 0;
     gbc.gridy = 1;
-    panel2.add(new JLabel("Código: "), gbc);
+    panel2.add(new JLabel("Cï¿½digo: "), gbc);
     
     gbc.gridx = 1;
     panel2.add(txtCodigoItem, gbc);
@@ -201,13 +201,13 @@ private void initMenu() {
     menubar = new JMenuBar();
     menuCadastrar = new JMenu("Cadastrar");
     menuRemover = new JMenu("Remover");
-    menuEmprestimo = new JMenu("Empréstimo");
+    menuEmprestimo = new JMenu("Emprï¿½stimo");
     menuItemCadastrarProfessor = new JMenuItem("Professor");
     menuItemCadastrarItem = new JMenuItem("Item");
     menuItemRemoverProfessor = new JMenuItem("Professor");
     menuItemRemoverItem = new JMenuItem("Item");
-    menuItemCadastrarEmprestimo = new JMenuItem("Efetuar Empréstimo");
-    menuItemRemoverEmprestimo = new JMenuItem("Finalizar Empréstimo");
+    menuItemCadastrarEmprestimo = new JMenuItem("Efetuar Emprï¿½stimo");
+    menuItemRemoverEmprestimo = new JMenuItem("Finalizar Emprï¿½stimo");
     menubar.add(menuCadastrar);
     menubar.add(menuRemover);
     menubar.add(menuEmprestimo);
@@ -238,7 +238,7 @@ public static void main(String[] args) {
     Frame frame = new Frame();
     Facade fachada = new Facade();
     frame.setBackground(Color.WHITE);
-    JLabel t = new JLabel(new ImageIcon("images/empréstimo.png"));
+    JLabel t = new JLabel(new ImageIcon("images/emprï¿½stimo.png"));
     frame.add(t);
     
     frame.btnCadastrarProf.addActionListener(new ActionListener() {
@@ -319,7 +319,8 @@ public static void main(String[] args) {
                 
                 if(ans == JOptionPane.YES_OPTION) {
                 	DefaultTableModel defaultTableModel = (DefaultTableModel) tableProfessor.getModel();
-                	Vector v = defaultTableModel.getDataVector().get(tableProfessor.getSelectedRow());
+                    @SuppressWarnings("unchecked")
+                	Vector<Object> v = defaultTableModel.getDataVector().get(tableProfessor.getSelectedRow());
                     String siapeProf = v.get(v.size()-1).toString();
                     ResultSet rsItem = db.listar(DbUtils.selectItem());
                     tableItem = new JTable(db.buildTableModel(rsItem));
@@ -329,7 +330,8 @@ public static void main(String[] args) {
                         int ansItem = GuiUtils.mostraTabelaItem(tableItem);
                         if(ansItem == JOptionPane.YES_OPTION) {
                         	DefaultTableModel defaultTableModelItem = (DefaultTableModel) tableItem.getModel();
-                        	Vector vItem = defaultTableModelItem.getDataVector().get(tableItem.getSelectedRow());
+                            @SuppressWarnings("unchecked")
+                        	Vector<Object> vItem = defaultTableModelItem.getDataVector().get(tableItem.getSelectedRow());
                             String codItem = vItem.get(0).toString();
                             int finalAns = GuiUtils.mostraConfirmacaoEmprestimo(siapeProf, codItem);
                             if(finalAns == JOptionPane.YES_OPTION) {
@@ -355,7 +357,8 @@ public static void main(String[] args) {
                 tableEmprestimo = new JTable(db.buildTableModel(rs));
                 int ans = GuiUtils.mostraTabelaEmprestimo(tableEmprestimo);
                 DefaultTableModel defaultTableModelEmp = (DefaultTableModel) tableEmprestimo.getModel();
-            	Vector vEmp = defaultTableModelEmp.getDataVector().get(tableEmprestimo.getSelectedRow());
+                @SuppressWarnings("unchecked")
+            	Vector<Object> vEmp = defaultTableModelEmp.getDataVector().get(tableEmprestimo.getSelectedRow());
                 //int codigoEmp = (int)tableEmprestimo.getValueAt(tableEmprestimo.getSelectedRow(), tableEmprestimo.getSelectedColumn());
             	int codigoEmp = (int) vEmp.get(0);
                 int confirmacao = GuiUtils.mostraConfirmacaoRemoverEmprestimo(codigoEmp);
@@ -377,7 +380,7 @@ public static void main(String[] args) {
     frame.getContentPane().setBackground(Color.WHITE);
     Image icon = Toolkit.getDefaultToolkit().getImage("images/icon.png");
     frame.setIconImage(icon);
-    frame.setTitle("IFEmpréstimo");
+    frame.setTitle("IFEmprï¿½stimo");
     frame.setVisible(true);
     
 }
