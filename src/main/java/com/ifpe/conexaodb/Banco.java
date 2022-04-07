@@ -27,26 +27,13 @@ protected PreparedStatement ps;
         con = (Connection) DriverManager.getConnection(Constantes.URL, Constantes.USER, Constantes.PASSWORD);
         
 
-//        String username = dbUri.getUserInfo().split(":")[0];
-//        String password = dbUri.getUserInfo().split(":")[1];
-//        String dbUrl = "jdbc:mysql://" + dbUri.getHost() + dbUri.getPath();
-//        con = (Connection) DriverManager.getConnection(dbUrl, username, password);
         
     }
 
     public void fecharConexao() throws Exception{
         con.close();
     }
-    
-//    public static Connection getConnection() throws URISyntaxException, SQLException {
-//        URI dbUri = new URI("mysql://b81bf686ecda13:80d182cf@us-cdbr-iron-east-02.cleardb.net/heroku_d34e19da561cb34?reconnect=true");
-//
-//        String username = dbUri.getUserInfo().split(":")[0];
-//        String password = dbUri.getUserInfo().split(":")[1];
-//        String dbUrl = "jdbc:mysql://" + dbUri.getHost() + dbUri.getPath();
-//        con = (Connection) DriverManager.getConnection(dbUrl, username, password);
-//        return con;
-//}
+   
 
     
     

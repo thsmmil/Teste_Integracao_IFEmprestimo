@@ -12,9 +12,6 @@ package com.ifpe.utils;
 public final class Constantes {
     
     public static String DRIVER = "com.mysql.jdbc.Driver";
-    //public static String URL = "jdbc:mysql://us-cdbr-iron-east-02.cleardb.netmysql://b81bf686ecda13:80d182cf@us-cdbr-iron-east-02.cleardb.net/heroku_d34e19da561cb34?reconnect=true";
-    //public static String USER = "b81bf686ecda13";
-    //public static String PASSWORD = "80d182cf";
     public static String USER = "root";
     public static String PASSWORD = "root";
     public static String URL = "jdbc:mysql://localhost:3306/ts?useSSL=false";	
