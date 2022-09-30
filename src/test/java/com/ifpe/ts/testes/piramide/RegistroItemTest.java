@@ -37,7 +37,9 @@ private static DbUtils db = new DbUtils();
 	
 	@After
 	public void end() throws Exception{
+		db.rollbackConexao();
 		db.fecharConexao();
+		
 	}
 	
 	private boolean throwException() throws SQLException{

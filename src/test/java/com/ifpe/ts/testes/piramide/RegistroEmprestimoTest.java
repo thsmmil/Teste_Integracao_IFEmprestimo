@@ -40,7 +40,7 @@ public class RegistroEmprestimoTest {
 	
 	@After
 	public void end() throws Exception{
-		db.rollbackConexao();
+		//db.rollbackConexao();
 		db.fecharConexao();
 	}
 	
@@ -50,13 +50,39 @@ public class RegistroEmprestimoTest {
 	
 	@Test
 	public void insertTest()  {
-		Item item = new Item("T1", "Teste");
+		Item item = new Item("T2", "Teste");
         RepositorioItem repItem = new RepositorioItem();
         int aux = repItem.inserir(item);
-        Emprestimo emp = new Emprestimo("1408701", "T1", "2022-09-29");
+        Emprestimo emp = new Emprestimo("1408701", "T2", "2022-09-29");
         RepositorioEmprestimo repEmp = new RepositorioEmprestimo();
         int i = repEmp.efetuarEmprestimo(emp);
-        assertEquals(1, i);
+        assertEquals(0, i);
         
 	}
+	
+	@Test(expected = SQLException.class)
+	public void insertExistentTest() throws SQLException {
+		Item item = new Item("T2", "Teste");
+        RepositorioItem repItem = new RepositorioItem();
+        int aux = repItem.inserir(item);
+        Emprestimo emp = new Emprestimo("1408701", "T2", "2022-09-29");
+        RepositorioEmprestimo repEmp = new RepositorioEmprestimo();
+        int i = repEmp.efetuarEmprestimo(emp);
+        i = repEmp.efetuarEmprestimo(emp);
+        assertFalse(throwException());
+        
+	}
+	
+	@Test
+	public void removeTest()  {
+		Item item = new Item("T2", "Teste");
+        RepositorioItem repItem = new RepositorioItem();
+        int aux = repItem.inserir(item);
+        Emprestimo emp = new Emprestimo("1408701", "T2", "2022-09-29");
+        RepositorioEmprestimo repEmp = new RepositorioEmprestimo();
+        int i = repEmp.removerEmprestimo(1);
+        assertEquals(0, i);
+        
+	}
+	
 }
