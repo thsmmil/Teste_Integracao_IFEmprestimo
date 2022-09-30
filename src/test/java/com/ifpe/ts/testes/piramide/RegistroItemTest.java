@@ -1,6 +1,5 @@
 package com.ifpe.ts.testes.piramide;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
@@ -17,16 +16,18 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.BlockJUnit4ClassRunner;
 
+import com.ifpe.ado.item.RepositorioItem;
 import com.ifpe.ado.professor.RepositorioProfessor;
 import com.ifpe.excecoes.SiapeInvalidoException;
 import com.ifpe.excecoes.TelefoneInvalidoException;
+import com.ifpe.item.Item;
 import com.ifpe.professor.Professor;
 import com.ifpe.utils.DbUtils;
 
 @RunWith(value = BlockJUnit4ClassRunner.class)
-public class RegistroTest {
-	
-	private static DbUtils db = new DbUtils();
+public class RegistroItemTest {
+
+private static DbUtils db = new DbUtils();
 	
 	@Before
 	public void init() throws Exception {
@@ -39,47 +40,51 @@ public class RegistroTest {
 		db.fecharConexao();
 	}
 	
+	private boolean throwException() throws SQLException{
+        throw new SQLException();
+    }
+	
+	@Test
+	public void insertTest() throws TelefoneInvalidoException, SiapeInvalidoException, SQLException  {
+		
+        Item item = new Item("C2", "Caderno");
+        RepositorioItem repItem = new RepositorioItem();
+        int i = repItem.inserir(item);
+        assertEquals(1, i);
+        
+	}
 	
 	@Test(expected = SQLException.class)
 	public void insertExistentTest() throws TelefoneInvalidoException, SiapeInvalidoException, SQLException  {
 		
-        Professor prof = new Professor("Humberto", "81999074393", "1408701");
-        RepositorioProfessor repProf = new RepositorioProfessor();
-        int i = repProf.inserir(prof);
+        Item item = new Item("C2", "Caderno");
+        RepositorioItem repItem = new RepositorioItem();
+        int i = repItem.inserir(item);
+        repItem.inserir(item);
         assertFalse(throwException());
         
-        
 	}
-	@Test
-	public void insertTest() throws TelefoneInvalidoException, SiapeInvalidoException, SQLException  {
-		
-        Professor prof = new Professor("Thiago", "87996645630", "1408705");
-        RepositorioProfessor repProf = new RepositorioProfessor();
-        int i = repProf.inserir(prof);
-        assertEquals(1, i);
-        
-        
-	}
+	
 	@Test
 	public void removeTest() throws TelefoneInvalidoException, SiapeInvalidoException, SQLException  {
 		
-        RepositorioProfessor repProf = new RepositorioProfessor();
-        int i = repProf.remover("1408701");
-        assertNotEquals(i, 0);
+		Item item = new Item("C2", "Caderno");
+        RepositorioItem repItem = new RepositorioItem();
+        int aux = repItem.inserir(item);
+        int i = repItem.remover("C2");
+        assertEquals(i, 0);
         
         
 	}
 	
-	@Test(expected = SQLException.class)
+	@Test
 	public void removeNullTest() throws TelefoneInvalidoException, SiapeInvalidoException, SQLException  {
 		
-        RepositorioProfessor repProf = new RepositorioProfessor();
-        int i = repProf.remover("14087025");
-        assertFalse(throwException());
+		
+        RepositorioItem repItem = new RepositorioItem();
+        int i = repItem.remover("C2");
+        assertEquals(i, 0);
         
         
 	}
-	private boolean throwException() throws SQLException{
-        throw new SQLException();
-    }
 }
